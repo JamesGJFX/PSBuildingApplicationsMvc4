@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PSmvc4.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -10,14 +11,24 @@ namespace PSmvc4.Controllers
     {
         public ActionResult Index()
         {
+            var controller = RouteData.Values["controller"];
+            var action = RouteData.Values["action"];
+            var id = RouteData.Values["id"];
+
+            var message = String.Format("{0}::{1} {2}", controller, action, id);
+
+            ViewBag.Message = message;
+
             return View();
         }
 
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
+            var model = new AboutModel();
+            model.Name = "James";
+            model.Location = "Dublin, Ireland";
 
-            return View();
+            return View(model);
         }
 
         public ActionResult Contact()
